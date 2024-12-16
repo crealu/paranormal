@@ -4,20 +4,27 @@ const express = require('express');
 // create express (backend) app
 const app = express();
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/public'));
+
+const pageRoot = { root: './public/pages' };
+const dataRoot = { root: './public/data' };
 
 // set a root endpoint for our app
 app.get('/', (req, res) => {
-	res.send('ah real monsters!');
+	// res.send('ah real monsters!');
+	res.sendFile('us.html', pageRoot);
 });
 
-// set a page endpoint
-app.get('/page', (req, res) => {
-	res.sendFile('index.html', {root: './'})
+app.get('/us', (req, res) => {
+	res.sendFile('us.html', pageRoot);
+});
+
+app.get('/sf', (req, res) => {
+	res.sendFile('sf.html', pageRoot);
 });
 
 app.get('/places', (req, res) => {
-	res.sendFile('haunted.json', {root: './'})
+	res.sendFile('haunted.json', dataRoot);
 });
 
 // allow our app to listen for connection
